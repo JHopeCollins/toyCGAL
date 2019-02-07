@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jth39/Documents/other/cgal/examples/Interpolation/surface_neighbor_coordinates_3.cpp
+CGAL/Exact_predicates_inexact_constructions_kernel.h
+-
+CGAL/point_generators_3.h
+-
+CGAL/algorithm.h
+-
+CGAL/Origin.h
+-
+CGAL/surface_neighbor_coordinates_3.h
+-
+

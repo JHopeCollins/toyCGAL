@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jth39/Documents/other/cgal/examples/Interpolation/interpolation_2.cpp
+CGAL/Exact_predicates_inexact_constructions_kernel.h
+-
+CGAL/Random.h
+-
+CGAL/squared_distance_2.h
+-
+CGAL/Delaunay_triangulation_2.h
+-
+CGAL/Interpolation_traits_2.h
+-
+CGAL/natural_neighbor_coordinates_2.h
+-
+CGAL/interpolation_functions.h
+-
+CGAL/point_generators_2.h
+-
+CGAL/algorithm.h
+-
+CGAL/Origin.h
+-
+cassert
+-
+

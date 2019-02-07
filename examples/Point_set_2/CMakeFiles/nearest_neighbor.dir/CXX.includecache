@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jth39/Documents/other/cgal/examples/Point_set_2/nearest_neighbor.cpp
+CGAL/Exact_predicates_inexact_constructions_kernel.h
+-
+CGAL/Point_set_2.h
+-
+list
+-
+

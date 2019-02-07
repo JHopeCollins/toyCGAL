@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jth39/Documents/other/cgal/examples/Interpolation/rn_coordinates_2.cpp
+CGAL/Exact_predicates_inexact_constructions_kernel.h
+-
+CGAL/Regular_triangulation_2.h
+-
+CGAL/Regular_triangulation_euclidean_traits_2.h
+-
+CGAL/regular_neighbor_coordinates_2.h
+-
+
