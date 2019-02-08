@@ -8,36 +8,39 @@
    template <class K>
    struct Project_Vector_On_Vector
   {
-      typedef typename K::Vector_2  Vector;
+      template <class Vector>
+      inline Vector operator()( Vector u, Vector v ){ return project( u,v ); }
 
-      //template <class Vector>
-      inline Vector operator()( Vector u, Vector v){ project( u, v ); }
-
-      //template <class Vector>
+      template <class Vector>
       inline Vector project( Vector u, Vector v )
      {
-         Vector p;
+         Vector p=v;
 
-         std::cout << "0"; ENDL;
-
-         p = v;
-         std::cout << "1"; ENDL;
          p*= v*u;
-         std::cout << "2"; ENDL;
          p/= v.squared_length();
-         std::cout << "3"; ENDL;
 
-         /*
-         typename K::FT d;
-         d = u*v;
-         d/= v.squared_length();
-         p = v*d;
-         */
-
-         std::cout << "4"; ENDL;
          return p;
      }
   };
+
+
+//functor to project vector v onto line l
+   template <class K>
+   struct Project_Vector_On_Line
+  {
+      Project_Vector_On_Vector<K>   project_vector_on_vector;
+
+      template <class Vector, class Line>
+      inline Vector operator()( Vector v, Line l ){ return project( v,l ); }
+
+      template <class Vector, class Line>
+      inline Vector project( Vector v, Line l )
+     {
+         Vector p=l.to_vector();
+         return project_vector_on_vector( v, p );
+     }
+  };
+
 
 // functor to project vector v onto plane p
    template <class K>
@@ -48,7 +51,7 @@
       typedef typename K::Vector_3  Vector;
       typedef typename K::Plane_3  Plane;
 
-      inline Vector operator()( Vector v, Plane p ){ project( v, p ); }
+      inline Vector operator()( Vector v, Plane p ){ return project( v,p ); }
 
       inline Vector project( Vector v, Plane p )
      {

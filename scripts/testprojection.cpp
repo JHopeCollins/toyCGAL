@@ -10,8 +10,7 @@
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
-#include "writeobjects2D.h"
-#include "writeobjects3D.h"
+#include "writeobjects.h"
 
 #include "vectorprojections.h"
 
@@ -26,64 +25,69 @@ typedef CGAL::Exact_predicates_inexact_constructions_kernel  K4;
 
 typedef K2  Kernel;
 
+typedef Kernel::Line_2         Line_2;
 typedef Kernel::Point_2       Point_2;
+typedef Kernel::Vector_2     Vector_2;
+
+typedef Kernel::Line_3         Line_3;
 typedef Kernel::Point_3       Point_3;
 typedef Kernel::Plane_3       Plane_3;
-typedef Kernel::Vector_2     Vector_2;
 typedef Kernel::Vector_3     Vector_3;
 
-typedef Write_Point_2<Kernel>    WritePoint_2;
-typedef Write_Point_3<Kernel>    WritePoint_3;
-typedef Write_Plane_3<Kernel>    WritePlane_3;
-typedef Write_Vector_2<Kernel>   WriteVector_2;
-typedef Write_Vector_3<Kernel>   WriteVector_3;
+typedef Write_Point<Kernel>      WritePoint;
+typedef Write_Line<Kernel>       WriteLine;
+typedef Write_Vector<Kernel>     WriteVector;
+typedef Write_Plane_3<Kernel>    WritePlane;
 
 typedef Project_Vector_On_Vector<Kernel>  ProjectVectorOnVector;
 typedef Project_Vector_On_Plane<Kernel>   ProjectVectorOnPlane;
+typedef Project_Vector_On_Line<Kernel>    ProjectVectorOnLine;
 
    int main()
   {
-      WritePlane_3   writeplane_3;
-      WritePoint_3   writepoint_3;
-      WritePoint_2   writepoint_2;
-      WriteVector_2  writevector_2;
-      WriteVector_3  writevector_3;
+      WritePoint     writepoint;
+      WriteLine      writeline;
+      WriteVector    writevector;
 
       ProjectVectorOnVector   projectVonV;
+      ProjectVectorOnLine     projectVonL;
       ProjectVectorOnPlane    projectVonP;
+
+      Point_2  p2(0.,1.);
+      Point_3  p3(0.,1.,2.);
+
       Vector_2 u(0.,1.), v(1.,1.), w;
 
+      Line_2   p( CGAL::ORIGIN, u ),
+               q( CGAL::ORIGIN, v );
+
+      std::cout << "p2:";
+      writepoint( p2 ); ENDL;
+
+      std::cout << "p3:";
+      writepoint( p3 ); ENDL;
+
       std::cout << "u: ";
-      writevector_2( u ); ENDL;
+      writevector( u ); ENDL;
 
       std::cout << "v: ";
-      writevector_2( v ); ENDL;
+      writevector( v ); ENDL;
 
-      typename Kernel::FT d;
-      d =u*v;
-      d/=u.squared_length();
-      w =u*d;
-      writevector_2( w ); ENDL;
+      w = projectVonV( v, u );
 
-      w = u;
-      w*= u*v;
-      w/= u.squared_length();
-      writevector_2( w ); ENDL;
-
-      w=projectVonV( v, u );
-      std::cout << "5"; ENDL;
-      writevector_2( v ); ENDL;
-      std::cout << "6"; ENDL;
-      writevector_2( u ); ENDL;
       std::cout << "w: ";
-      writevector_2( w ); ENDL;
-      std::cout << "7"; ENDL;
+      writevector( w ); ENDL;
 
-/*
-      w=projectVonV( u, v );
+      std::cout << "p: ";
+      writeline( p ); ENDL;
+
+      std::cout << "q: ";
+      writeline( q ); ENDL;
+
+      w = projectVonL( v, p );
+
       std::cout << "w: ";
-      writevector_2( w ); ENDL;
-*/
+      writevector( w ); ENDL;
 
       return 0;
   }
