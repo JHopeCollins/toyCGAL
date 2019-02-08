@@ -10,8 +10,7 @@
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 
-#include "writeobjects2D.h"
-#include "writeobjects3D.h"
+#include "writeobjects.h"
 
 #include "vectorprojections.h"
 
@@ -31,10 +30,10 @@ typedef Kernel::Point_3       Point_3;
 typedef Kernel::Plane_3       Plane_3;
 typedef Kernel::Vector_3     Vector_3;
 
-typedef Write_Point_2<Kernel>    WritePoint_2;
-typedef Write_Point_3<Kernel>    WritePoint_3;
-typedef Write_Plane_3<Kernel>    WritePlane_3;
-typedef Write_Vector_3<Kernel>   WriteVector_3;
+typedef Write_Point<Kernel>    WritePoint;
+typedef Write_Line<Kernel>     WriteLine;
+typedef Write_Vector<Kernel>   WriteVector;
+typedef Write_Plane_3<Kernel>  WritePlane;
 
 typedef Project_Vector_On_Vector<Kernel>  ProjectVectorOnVector;
 typedef Project_Vector_On_Plane<Kernel>   ProjectVectorOnPlane;
@@ -46,10 +45,10 @@ typedef Project_Vector_On_Plane<Kernel>   ProjectVectorOnPlane;
       int         i,j,k;
       double      a,b,c;
 
-      WritePlane_3   writeplane_3;
-      WritePoint_3   writepoint_3;
-      WritePoint_2   writepoint_2;
-      WriteVector_3  writevector_3;
+      WritePoint   writepoint;
+      WriteLine    writeline;
+      WritePlane   writeplane;
+      WriteVector  writevector;
 
       ProjectVectorOnVector   projectVonV;
       ProjectVectorOnPlane    projectVonP;
@@ -81,39 +80,41 @@ typedef Project_Vector_On_Plane<Kernel>   ProjectVectorOnPlane;
                Pyz(  pt[0][0][0], pt[0][1][0], pt[0][0][1] ),
                P111( pt[1][0][0], pt[0][1][0], pt[0][0][1] );
 
-      Plane_3  P=Pxy;
+
+      Plane_3  P=P111;
+      std::cout << "working in plane: ";
+      writeplane( P ); ENDL;
 
       // arbitrary point in R2
       q = Point_2( 1., 2. );
-      std::cout << "q: ";
-      writepoint_2( q );ENDL;
+      std::cout << "start point_2: ";
+      writepoint( q ); ENDL;
 
       // convert point onto one of planes
       s = P.to_3d( q );
-      std::cout << "s: ";
-      writepoint_3( s ); ENDL;
+      std::cout << "start point_3: ";
+      writepoint( s ); ENDL;
 
       // arbitrary vector in R3
       u = Vector_3(2.,3.,1.);
-      std::cout << "u: ";
-      writevector_3( u ); ENDL;
+      std::cout << "displacement vector_3: ";
+      writevector( u ); ENDL;
 
       // project vector onto plane
       v = projectVonP( u, P );
-      std::cout << "v: ";
-      writevector_3( v ); ENDL;
+      std::cout << "displacement vector_3 in plane: ";
+      writevector( v ); ENDL;
 
       // increment point by projected vector
       t = s + v;
-      std::cout << "t: ";
-      writepoint_3( t ); ENDL;
+      std::cout << "displaced point_3: ";
+      writepoint( t ); ENDL;
 
       // convert back to R2
       r = P.to_2d( t );
-      std::cout << "r: ";
-      writepoint_2( r ); ENDL;
+      std::cout << "displaced point_2: ";
+      writepoint( r ); ENDL;
 
       return 0;
   }
-
 
